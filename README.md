@@ -6,6 +6,8 @@ Once created from this template
 - The README must be updated
 - Some basic Gradle adjustments made for name-based operations
 - The creator's name should be added to developers.properties (`username,name`)
+- The `CODECOV_UPLOAD_TOKEN` needs to be set to the new repository's API token from the CodeCov service
+- The repository needs to be enabled in BlackDuck CoPilot
 
 
 # TODO Project Name
