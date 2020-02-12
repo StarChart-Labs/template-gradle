@@ -34,14 +34,14 @@ subprojects {
     apply plugin: 'jacoco'
     apply plugin: 'maven-publish'
     apply plugin: 'com.jfrog.bintray'
-    
+
     projectMetaData {
         github {
             repository 'StarChart-Labs', '{project}'
-            
+
             throw new GradleException("Project name not updated")
         }
-        
+
         licenses {
             mit()
         }
@@ -50,13 +50,13 @@ subprojects {
     checkstyle {
         configFile = rootProject.file('config/checkstyle/checkstyle.xml')
         configProperties = [ 'checkstyle.config.dir' : rootProject.file('config/checkstyle') ]
-        toolVersion = '8.18'
+        toolVersion = '8.29'
     }
-     
+
     task checkstyleAll{}
-     
+
     tasks.withType(Checkstyle).all { checkstyleTask -> checkstyleAll.dependsOn checkstyleTask }
-     
+
     check.dependsOn checkstyleAll
 
     // Setup default test behavior, including failure logging
@@ -65,23 +65,23 @@ subprojects {
             useDefaultListeners = true
         }
     }
-    
+
     // Apply module naming to all projects
     // Add LICENSE so it is included in all JARs, as well as dependent licenses, fulfilling the "distributions include license" requirement
     jar {
 		manifest {
 			attributes("Automatic-Module-Name": "${project.group}.${project.name  - '{project}-'}".replaceAll("-", "."))
-            
+
             throw new GradleException("Project name not updated")
 		}
 	}
-    
+
     tasks.withType(Jar).all {
         from("${rootDir}"){
             include 'LICENSE'
         }
     }
-	
+
 	publishing {
         publications {
             maven(MavenPublication) {
@@ -89,7 +89,7 @@ subprojects {
             }
         }
     }
-    
+
     // If not a remote run, publish to local only
     if(!project.hasProperty('remoteDeploy')){
         publishing {
@@ -101,7 +101,7 @@ subprojects {
 
     bintray {
         throw new GradleException("repo name not updated")
-        
+
         publications = [ 'maven' ]
 
         if(!project.hasProperty('remoteDeploy')){
@@ -127,7 +127,7 @@ subprojects {
             }
         }
 	}
-    
+
     // TODO romeara workaround until deferred credential reading is available in flare-plugins
     bintrayUpload {
         doFirst {
